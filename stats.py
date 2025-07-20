@@ -28,11 +28,17 @@ def character_counter(text: str) -> dict[str, int]:
             counts sorted by value
     """
 
-    char_counts: dict[str, int] = defaultdict(int)  # renamed
-    text = text.lower()
+    # defaultdict is an advanced type that creates a dict that automatically
+    # adds an instance of the provided type (int in this case) with its
+    # default value if assigning an unused key
+    char_counts: dict[str, int] = defaultdict(int)
+
+    text = text.lower()  # renamed since str's pass by copy in params
 
     for char in text:
         if char.isalpha():
+            # this works because if char is not in char_counts yet,
+            # defaultdict automatically sets it to 0 first before incrementing
             char_counts[char] += 1
 
     # Convert dict.items() into a list of tuple[str,int] values
@@ -49,7 +55,7 @@ def character_counter(text: str) -> dict[str, int]:
     # return dict(sorted(char_counts.items(), key=lambda x: x[1], reverse=True))
 
 
-""" 
+"""
     Removed the other two functions for sorting since it can be condensed 
     into the character_counter() function
 """
