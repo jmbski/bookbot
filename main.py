@@ -1,12 +1,22 @@
 """Simple boot.dev project to read text from file and provide statistics"""
 
+import argparse
 import sys
 
 import stats
 
-if len(sys.argv) < 2:
-    print("Usage: python3 main.py <path_to_book>")
-    sys.exit(1)
+
+""" 
+    This part here is a more advanced way to handle command line arguments
+    Not strictly necessary at all, and sys.argv is perfectly fine for 
+    single arg commands like this one. Just wanted to show an example of
+    using argparse with a simple scenario
+"""
+parser = argparse.ArgumentParser(description=__doc__)
+# __doc__ is a built-in variable that returns the docstring for the file
+
+parser.add_argument("src_path", help="Path to file to check")
+args = parser.parse_args()
 
 
 def get_book_text(path_to_file: str) -> str:
@@ -27,15 +37,20 @@ def get_book_text(path_to_file: str) -> str:
 def main() -> None:
     """Main function"""
 
-    path_to_file = sys.argv[1]
-    text = get_book_text(path_to_file)
-    dict_list = stats.character_counter(text)
-    print("============ BOOKBOT ============")
-    print("Analyzing book found at " + path_to_file + "...")
-    print("----------- Word Count ----------")
-    print("Found", stats.word_counter(text), "total words")
-    print("--------- Character Count -------")
-    for char, count in dict_list.items():
+    text = get_book_text(args.src_path)
+    char_counts = stats.character_counter(text)  # renamed for clarity
+
+    # Just demonstrating an alternate way to build str variables
+    header: str = (
+        "============ BOOKBOT ============\n"  # <- do note however newlines have to be appended
+        f"Analyzing book found at {args.src_path}...\n"
+        "----------- Word Count ----------\n"
+        f"Found {stats.word_counter(text)} total words\n"
+        "--------- Character Count -------"
+    )
+
+    print(header)
+    for char, count in char_counts.items():
         if char.isalpha():
             print(f"{char}: {count}")
     print("============= END ===============")

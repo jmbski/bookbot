@@ -24,10 +24,11 @@ def character_counter(text: str) -> dict[str, int]:
         text (str): Text to process
 
     Returns:
-        dict[str, int]: Mapping of the characters and their individual counts
+        dict[str, int]: Mapping of the characters and their individual
+            counts sorted by value
     """
 
-    char_counts: dict[str, int] = defaultdict(int)
+    char_counts: dict[str, int] = defaultdict(int)  # renamed
     text = text.lower()
 
     for char in text:
@@ -46,3 +47,9 @@ def character_counter(text: str) -> dict[str, int]:
 
     # ↓↓ Fancy one line way of writing it out ↓↓
     # return dict(sorted(char_counts.items(), key=lambda x: x[1], reverse=True))
+
+
+""" 
+    Removed the other two functions for sorting since it can be condensed 
+    into the character_counter() function
+"""
