@@ -42,7 +42,7 @@ def main() -> None:
 
     # Just demonstrating an alternate way to build str variables
     header: str = (
-        "============ BOOKBOT ============\n"  # <- do note however newlines have to be appended
+        "============ BOOKBOT ============\n"  # <- do note however, newlines have to be appended
         f"Analyzing book found at {args.src_path}...\n"
         "----------- Word Count ----------\n"
         f"Found {stats.word_counter(text)} total words\n"
@@ -57,7 +57,7 @@ def main() -> None:
 
 
 # Rather than just doing main() out in the open, common practice is to
-# hide it uner a condition on __name__. __name__ is another built-in that
+# hide it under a condition on __name__. __name__ is another built-in that
 # returns the name of the module. Typically, module = filename, except if
 # the module being executed is the initial one (i.e., the file that you
 # run `python3 <file_name>` on), in which case the __name__ will always
