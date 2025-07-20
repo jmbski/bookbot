@@ -1,33 +1,48 @@
-def word_counter(text):
+"""Simple utility functions for the bookbot project"""
+
+from collections import defaultdict
+
+
+def word_counter(text: str) -> int:
+    """Retrieve the number of words in a text file
+
+    Args:
+        text (str): Text to process
+
+    Returns:
+        int: number of words (determined by white space)
+    """
+
     words = text.split()
     return len(words)
 
-def character_counter(text):
-    characters_set = {}
-    no_caps_characters = text.lower()
-    for char in no_caps_characters:
+
+def character_counter(text: str) -> dict[str, int]:
+    """Get a total count for each distinct character in the provided text
+
+    Args:
+        text (str): Text to process
+
+    Returns:
+        dict[str, int]: Mapping of the characters and their individual counts
+    """
+
+    char_counts: dict[str, int] = defaultdict(int)
+    text = text.lower()
+
+    for char in text:
         if char.isalpha():
-            if char in characters_set:
-                characters_set[char.lower()] += 1
-            else:
-                characters_set[char.lower()] = 1
-    return characters_set
+            char_counts[char] += 1
 
-def sort_on(items):
-    return items["num"]
+    # Convert dict.items() into a list of tuple[str,int] values
+    entry_list: list[tuple[str, int]] = list(char_counts.items())
 
-def tuples_to_sorted_dicts(characters_set):
-    dict_list = []
-    tuple_to_dict = {}
-    for tuple in characters_set.items():
-        tuple_to_dict = {
-           "char" : tuple[0],
-           "num" : tuple[1]
-        }
-        dict_list.append(tuple_to_dict)
-    dict_list.sort(key=sort_on, reverse=True)
-    return dict_list
+    # sort entries based on the second item in each tuple
+    entry_list.sort(key=lambda x: x[1], reverse=True)
 
+    # dict can accept a list of 2-value tuples (representing key-value pairs)
+    # so cast our list[tuple[str,int]] as a dict for the return value
+    return dict(entry_list)
 
-    
-        
+    # ↓↓ Fancy one line way of writing it out ↓↓
+    # return dict(sorted(char_counts.items(), key=lambda x: x[1], reverse=True))
