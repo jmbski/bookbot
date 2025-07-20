@@ -37,8 +37,10 @@ def get_book_text(path_to_file: str) -> str:
 def main() -> None:
     """Main function"""
 
-    text = get_book_text(args.src_path)
-    char_counts = stats.character_counter(text)  # renamed for clarity
+    text: str = get_book_text(args.src_path)
+
+    # renamed for clarity
+    char_counts: dict[str, int] = stats.character_counter(text)
 
     # Just demonstrating an alternate way to build str variables
     header: str = (
