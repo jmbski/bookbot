@@ -56,5 +56,15 @@ def main() -> None:
     print("============= END ===============")
 
 
+# Rather than just doing main() out in the open, common practice is to
+# hide it uner a condition on __name__. __name__ is another built-in that
+# returns the name of the module. Typically, module = filename, except if
+# the module being executed is the initial one (i.e., the file that you
+# run `python3 <file_name>` on), in which case the __name__ will always
+# be "__main__". This prevents the code from being executed if this module
+# were ever imported somewhere else.
+#
+# Not a worry in this simple example project, but it's a good habit to
+# get into
 if __name__ == "__main__":
     main()
